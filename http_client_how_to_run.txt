@@ -1,0 +1,9 @@
+To run http_client.c
+1)Create a folder CN_Web_Server
+2)Add files in it such as index.html, notes.txt, any .pdf, any .jpg file
+3)after that from the CN_Web_Server directory in the terminal, start the python server by :
+python3 -m http.server 8000 --bind 0.0.0.0
+4)open another terminal 
+5)compile the http_client.c 
+gcc http_client.c -o http_client
+6)type the url like : http://localhost:8000/index.html etc like that 
