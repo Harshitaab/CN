@@ -22,3 +22,14 @@ Run the program:
 Check the terminal output for throughput results at 2 ms, 5 ms, 10 ms, and 20 ms link latency.
 
 Open the generated PCAP files in Wireshark to analyze UDP traffic on ports 5000 and 6000.
+-------------------------------------
+Now run these three commands separately:
+Run 1 — TCP Reno family (NewReno)
+./ns3 run "scratch/vanet-tcp-variants --tcpType=ns3::TcpNewReno"
+
+Run 2 — TCP Cubic
+./ns3 run "scratch/vanet-tcp-variants --tcpType=ns3::TcpCubic"
+
+Run 3 — TCP BBR
+./ns3 run "scratch/vanet-tcp-variants --tcpType=ns3::TcpBbr"
+
