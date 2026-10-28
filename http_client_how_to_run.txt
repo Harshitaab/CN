@@ -33,3 +33,40 @@ Run 2 — TCP Cubic
 Run 3 — TCP BBR
 ./ns3 run "scratch/vanet-tcp-variants --tcpType=ns3::TcpBbr"
 
+
+# Assignment 11: Performance Analysis of a Heterogeneous Wireless Network
+
+## Environment
+- NS-3.45
+- C++
+- Ubuntu Linux
+
+## Objective
+Study how mobility speed affects wireless network performance.
+
+## Mobility speeds
+- 1 m/s
+- 5 m/s
+- 10 m/s
+
+## Performance metrics
+- Received signal power
+- Throughput
+- Packet loss
+- End-to-end delay
+
+## How to run
+From the NS-3.45 root directory:
+
+```bash
+./ns3 run scratch/assignment11.cc
+```
+
+## Important limitations
+The current source must be tested against the installed NS-3.45 build.
+The Wi-Fi section uses FlowMonitor for IP traffic statistics.
+The LR-WPAN section represents IEEE 802.15.4 radio functionality,
+not a complete Zigbee stack.
+Bluetooth requires a compatible additional module.
+
+
