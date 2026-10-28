@@ -7,3 +7,18 @@ python3 -m http.server 8000 --bind 0.0.0.0
 5)compile the http_client.c 
 gcc http_client.c -o http_client
 6)type the url like : http://localhost:8000/index.html etc like that 
+
+-------------to run ns3 file---------------------
+Place the C++ program (udp-latency.cc) inside the NS-3 scratch folder.
+
+Open the terminal and navigate to the NS-3 directory:
+
+cd ~/ns-3
+
+Run the program:
+
+./ns3 run scratch/udp-latency.cc
+
+Check the terminal output for throughput results at 2 ms, 5 ms, 10 ms, and 20 ms link latency.
+
+Open the generated PCAP files in Wireshark to analyze UDP traffic on ports 5000 and 6000.
