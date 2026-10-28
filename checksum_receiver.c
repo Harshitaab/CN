@@ -34,6 +34,7 @@ int main(void)
     int opt = 1;
 
     server_fd = socket(AF_INET, SOCK_STREAM, 0);
+
     if (server_fd < 0) {
         perror("socket");
         return 1;
@@ -60,9 +61,11 @@ int main(void)
         return 1;
     }
 
-    printf("Checksum receiver listening on port %d...\n", PORT);
+    printf("=== CHECKSUM RECEIVER ===\n");
+    printf("Listening on TCP port %d...\n", PORT);
 
     client_fd = accept(server_fd, NULL, NULL);
+
     if (client_fd < 0) {
         perror("accept");
         close(server_fd);
@@ -70,6 +73,7 @@ int main(void)
     }
 
     unsigned int count_net;
+
     if (!receive_all(client_fd, &count_net, sizeof(count_net))) {
         printf("Failed to receive word count.\n");
         close(client_fd);
@@ -97,13 +101,16 @@ int main(void)
     }
 
     printf("\nReceived data words:\n");
+
     unsigned int sum = 0;
 
     for (unsigned int i = 0; i < n; i++) {
-        printf("%02X ", data[i]);
+        printf("Word %u = %u (0x%02X)\n",
+               i + 1, data[i], data[i]);
+
         sum += data[i];
 
-        printf("\nAdding %02X: sum = %03X", data[i], sum);
+        printf("Intermediate sum = %03X", sum);
 
         if (sum > 0xFF) {
             sum = (sum & 0xFF) + 1;
@@ -113,21 +120,23 @@ int main(void)
         printf("\n");
     }
 
-    printf("Received checksum = %02X\n", checksum);
+    printf("\nReceived checksum = %02X\n", checksum);
 
+    /* Add the received checksum to the data sum */
     sum += checksum;
+
     if (sum > 0xFF)
         sum = (sum & 0xFF) + 1;
 
-    printf("Sum including checksum = %02X\n", sum);
+    printf("Final verification sum = %02X\n", sum);
 
     char result[128];
 
     if (sum == 0xFF) {
-        printf("Verification: NO ERROR DETECTED\n");
+        printf("Result: NO ERROR DETECTED\n");
         snprintf(result, sizeof(result), "NO ERROR DETECTED");
     } else {
-        printf("Verification: ERROR DETECTED\n");
+        printf("Result: ERROR DETECTED\n");
         snprintf(result, sizeof(result), "ERROR DETECTED");
     }
 
@@ -135,5 +144,6 @@ int main(void)
 
     close(client_fd);
     close(server_fd);
+
     return 0;
 }
